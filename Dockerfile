@@ -5,6 +5,6 @@ WORKDIR /app
 RUN pip install --no-cache-dir blinkt
 RUN pip install --no-cache-dir psutil
 
-COPY config.py cpu_load.py mem_load.py ./
+COPY src ./
 
 CMD ["python3", "/app/cpu_load.py"]

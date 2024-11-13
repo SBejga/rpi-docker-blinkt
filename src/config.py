@@ -4,10 +4,10 @@ from collections import namedtuple
 
 Config = namedtuple('Config', 'r g b brightness')
 
-def get_config():
-    r = int(os.getenv("BLINKT_RGBHEX_R", "255"))
-    g = int(os.getenv("BLINKT_RGBHEX_G", "255"))
-    b = int(os.getenv("BLINKT_RGBHEX_B", "255"))
+def get_config(prefix="BLINKT"):
+    r = int(os.getenv(prefix+"_RGBHEX_R", "255"))
+    g = int(os.getenv(prefix+"_RGBHEX_G", "255"))
+    b = int(os.getenv(prefix+"_RGBHEX_B", "255"))
 
     for c in [r, g, b]:
         if c < 0 or c > 255:
