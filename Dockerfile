@@ -7,4 +7,4 @@ RUN pip install --no-cache-dir psutil
 
 COPY src ./
 
-CMD ["python3", "/app/cpu_load.py"]
+CMD ["python3", "cpu_load.py"]

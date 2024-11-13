@@ -6,7 +6,7 @@ import blinkt
 from config import get_config
 from show_graph import show_graph
 
-Config = get_config()
+Config = get_config('BLINKT_MEM')
 
 blinkt.set_clear_on_exit()
 blinkt.set_brightness(Config.brightness)

@@ -5,12 +5,12 @@ import blinkt
 from config import get_config
 from show_graph import show_graph
 
-Config = get_config()
+ConfigCpu = get_config('BLINKT_CPU')
 
 blinkt.set_clear_on_exit()
-blinkt.set_brightness(Config.brightness)
+blinkt.set_brightness(ConfigCpu.brightness)
 
 while True:
-    v = psutil.cpu_percent() / 100.0
-    show_graph(v, Config.r, Config.g, Config.b)
+    v = psutil.cpu_percent(interval=ConfigCpu.interval) / 100.0
+    show_graph(v, ConfigCpu.r, ConfigCpu.g, ConfigCpu.b)
     time.sleep(0.01)
