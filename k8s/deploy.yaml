@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: keep-blinkt
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: keep-blinkt
+  template:
+    metadata:
+      labels:
+        app: keep-blinkt
+    spec:
+      containers:
+      - name: alpine-curl
+        image: alpine/curl:latest
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
+        command: ["/bin/sh", "-c"]
+        env:
+        - name: RGB_CPU
+          value: "r=0&g=255&b=123"
+        - name: RGB_MEM
+          value: "r=255&g=100&b=0"
+        args:
+          - |
+            while true; do
+              for i in $(seq 1 20); do
+                curl -s http://walpi1.local:5000/cpu?i=0.5$RGB_CPU;
+              done
+              for i in $(seq 1 10); do
+                curl -s http://walpi1.local:5000/memory?i=0.0$RGB_MEM;
+                sleep 1;
+              done
+            done
