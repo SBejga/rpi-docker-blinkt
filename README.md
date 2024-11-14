@@ -1,5 +1,9 @@
 # rpi-docker-blinkt
 
+## Build
+
+sudo docker build -t rpi-docker-blinkt .
+
 sudo docker run --rm --privileged --device /dev/gpiomem rpi-docker-blinkt
 
 > without privileged, RPi.GPIO complains about "RuntimeError: This module can only be run on a Raspberry Pi!"
@@ -42,6 +46,15 @@ sudo docker run --rm --privileged --device /dev/gpiomem \
 -e BLINKT_MODE_CYCLE_COUNT=50 \
 -e BLINKT_CPU_INTERVAL=0.2 \
 rpi-docker-blinkt python load.py
+
+## app.py
+
+sudo docker run --rm --privileged --device /dev/gpiomem \
+-e BLINKT_RGBHEX_R=0 \
+-e BLINKT_RGBHEX_G=255 \
+-e BLINKT_RGBHEX_B=123 \
+-p 5000:5000 \
+rpi-docker-blinkt python app.py
 
 ## Simulate Load
 

@@ -4,6 +4,8 @@ WORKDIR /app
 
 RUN pip install --no-cache-dir blinkt
 RUN pip install --no-cache-dir psutil
+RUN pip install --no-cache-dir flask
+RUN pip install --no-cache-dir requests
 
 COPY src ./
 
