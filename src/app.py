@@ -50,7 +50,7 @@ def set_color():
     show_graph(ratio, r, g, b)
     return jsonify({"R": r, "G": g, "B": b})
 
-def receiveSignal(signalNumber):
+def receiveSignal(signalNumber, frame):
     print('Received:', signalNumber)
     blinkt.clear()
     return
