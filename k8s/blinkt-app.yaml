@@ -1,0 +1,57 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: blinkt-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: blinkt-app
+  template:
+    metadata:
+      labels:
+        app: blinkt-app
+    spec:
+      imagePullSecrets:
+      - name: ghcr-io-sbejga
+      containers:
+      - name: rpi-docker-blinkt
+        image: ghcr.io/sbejga/rpi-docker-blinkt:sha256-5a6b0d2f8f310c44bc87d1ffa9a132eea081fb8c4cd998de34ebe27eae74fd52
+        resources:
+          limits:
+            memory: "64Mi"
+            cpu: "100m"
+        command: ["python", "app.py"]
+        ports:
+        - containerPort: 5000
+        env:
+        - name: BLINKT_RGBHEX_R
+          value: "255"
+        - name: BLINKT_RGBHEX_G
+          value: "0"
+        - name: BLINKT_RGBHEX_B
+          value: "0"
+        - name: BLINKT_INIT_LED_COUNT
+          value: "4"
+        securityContext:
+          privileged: true
+        volumeMounts:
+        - mountPath: /dev/gpiomem
+          name: gpiomem
+      volumes:
+      - name: gpiomem
+        hostPath:
+          path: /dev/gpiomem
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: blinkt-app
+spec:
+  selector:
+    app: blinkt-app
+  ports:
+    - protocol: TCP
+      port: 5000
+      targetPort: 5000
+  type: ClusterIP

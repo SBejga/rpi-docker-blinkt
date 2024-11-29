@@ -45,10 +45,14 @@ def set_memory():
 def set_color():
     r, g, b = getRGB(Config)
     app.logger.info(f"color R={r} G={g} B={b}")
-    show_graph(1, r, g, b)
+    ratio = blinkt.NUM_PIXELS / request.args.get('n', default = 1, type = int)
+    show_graph(ratio, r, g, b)
     return jsonify({"R": r, "G": g, "B": b})
 
 if __name__ == "__main__":
     init_blinkt()
-    show_graph(1.0, Config.r, Config.g, Config.b)
+    n = int(os.getenv("BLINKT_INIT_LED_COUNT", blinkt.NUM_PIXELS))
+    if n < 0 or n > blinkt.NUM_PIXELS:
+        n = blinkt.NUM_PIXELS
+    show_graph(blinkt.NUM_PIXELS / n, Config.r, Config.g, Config.b)
     app.run(debug=True, host="0.0.0.0", port=port)

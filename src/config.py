@@ -1,10 +1,12 @@
 
 import os
+import blinkt
 from collections import namedtuple
 
 Config = namedtuple('Config', 'r g b brightness interval')
 
 def get_config(prefix="BLINKT"):
+    n = float(os.getenv(prefix+"_INIT_LED", blinkt.NUM_PIXELS))
     r = int(os.getenv(prefix+"_RGBHEX_R", "255"))
     g = int(os.getenv(prefix+"_RGBHEX_G", "255"))
     b = int(os.getenv(prefix+"_RGBHEX_B", "255"))

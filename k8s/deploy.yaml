@@ -21,6 +21,8 @@ spec:
             cpu: "100m"
         command: ["/bin/sh", "-c"]
         env:
+        - name: BASE_URL
+          value: "http://walpi1.local:5000"
         - name: RGB_CPU
           value: "r=0&g=255&b=123"
         - name: RGB_MEM
@@ -29,10 +31,10 @@ spec:
           - |
             while true; do
               for i in $(seq 1 20); do
-                curl -s http://walpi1.local:5000/cpu?i=0.5$RGB_CPU;
+                curl -s $BASE_URL/cpu?i=0.5&${RGB_CPU};
               done
               for i in $(seq 1 10); do
-                curl -s http://walpi1.local:5000/memory?i=0.0$RGB_MEM;
+                curl -s $BASE_URL/memory?i=0.0&${RGB_MEM};
                 sleep 1;
               done
             done
