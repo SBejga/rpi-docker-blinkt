@@ -1,3 +1,4 @@
+import signal
 import requests
 import threading
 import os
@@ -49,8 +50,14 @@ def set_color():
     show_graph(ratio, r, g, b)
     return jsonify({"R": r, "G": g, "B": b})
 
+def receiveSignal(signalNumber):
+    print('Received:', signalNumber)
+    blinkt.clear()
+    return
+
 if __name__ == "__main__":
     init_blinkt()
+    signal.signal(signal.SIGTERM, receiveSignal)
     n = int(os.getenv("BLINKT_INIT_LED_COUNT", blinkt.NUM_PIXELS))
     if n < 0 or n > blinkt.NUM_PIXELS:
         n = blinkt.NUM_PIXELS

@@ -7,6 +7,8 @@ spec:
   selector:
     matchLabels:
       app: blinkt-app
+  strategy:
+    type: Recreate
   template:
     metadata:
       labels:
@@ -14,8 +16,8 @@ spec:
     spec:
       containers:
       - name: rpi-docker-blinkt
-        image: sbejga/rpi-blinkt:main
-        imagePullPolicy: Always
+        image: sbejga/rpi-blinkt@sha256:077d89ae3b3b8fe2113206043c7fe46dcffbdf5ad3e7474bd0d12cd3a490829d
+        imagePullPolicy: IfNotPresent
         resources:
           limits:
             memory: "64Mi"
@@ -25,11 +27,11 @@ spec:
         - containerPort: 5000
         env:
         - name: BLINKT_RGBHEX_R
-          value: "255"
+          value: "0"
         - name: BLINKT_RGBHEX_G
           value: "0"
         - name: BLINKT_RGBHEX_B
-          value: "0"
+          value: "255"
         - name: BLINKT_INIT_LED_COUNT
           value: "4"
         securityContext:
