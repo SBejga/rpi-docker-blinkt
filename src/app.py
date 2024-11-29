@@ -1,12 +1,12 @@
+import sys
 import signal
-import requests
-import threading
 import os
 import psutil
 import blinkt
 from flask import Flask, jsonify, request
 from show_graph import show_graph
 from config import get_config
+
 
 app = Flask(__name__)
 port = int(os.environ.get('PORT', 5000))
@@ -50,15 +50,17 @@ def set_color():
     show_graph(ratio, r, g, b)
     return jsonify({"R": r, "G": g, "B": b})
 
-def receiveSignal(signalNumber, frame):
-    print('Received:', signalNumber)
+def sig_handler(signalnum, frame):
+    print("received " + signal.Signals(signalnum).name)
     blinkt.clear()
-    return
+    print("blinkt.clear() and exit()")
+    sys.exit()
+
+signal.signal(signal.SIGTERM, sig_handler)
+signal.signal(signal.SIGINT, sig_handler)
 
 if __name__ == "__main__":
     init_blinkt()
-    signal.signal(signal.SIGTERM, receiveSignal)
-    signal.signal(signal.SIGINT, receiveSignal)
     n = int(os.getenv("BLINKT_INIT_LED_COUNT", blinkt.NUM_PIXELS))
     if n < 0 or n > blinkt.NUM_PIXELS:
         n = blinkt.NUM_PIXELS
