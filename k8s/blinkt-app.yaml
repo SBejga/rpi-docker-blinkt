@@ -15,6 +15,7 @@ spec:
       containers:
       - name: rpi-docker-blinkt
         image: sbejga/rpi-blinkt:main
+        imagePullPolicy: Always
         resources:
           limits:
             memory: "64Mi"

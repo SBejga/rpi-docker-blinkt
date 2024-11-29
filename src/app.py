@@ -55,4 +55,4 @@ if __name__ == "__main__":
     if n < 0 or n > blinkt.NUM_PIXELS:
         n = blinkt.NUM_PIXELS
     show_graph(blinkt.NUM_PIXELS / n, Config.r, Config.g, Config.b)
-    app.run(debug=True, host="0.0.0.0", port=port)
+    app.run(debug=True, use_reloader=False, host="0.0.0.0", port=port)

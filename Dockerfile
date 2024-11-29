@@ -10,4 +10,4 @@ RUN pip install --no-cache-dir rpi-lgpio
 
 COPY src ./
 
-CMD ["python3", "cpu_load.py"]
+CMD ["python3", "app.py"]
