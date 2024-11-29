@@ -9,5 +9,5 @@ RUN pip install --no-cache-dir requests
 RUN pip install --no-cache-dir rpi-lgpio
 
 COPY src ./
-
+STOPSIGNAL SIGINT
 CMD ["python3", "app.py"]

@@ -58,6 +58,7 @@ def receiveSignal(signalNumber, frame):
 if __name__ == "__main__":
     init_blinkt()
     signal.signal(signal.SIGTERM, receiveSignal)
+    signal.signal(signal.SIGINT, receiveSignal)
     n = int(os.getenv("BLINKT_INIT_LED_COUNT", blinkt.NUM_PIXELS))
     if n < 0 or n > blinkt.NUM_PIXELS:
         n = blinkt.NUM_PIXELS
