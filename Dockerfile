@@ -6,6 +6,7 @@ RUN pip install --no-cache-dir blinkt
 RUN pip install --no-cache-dir psutil
 RUN pip install --no-cache-dir flask
 RUN pip install --no-cache-dir requests
+RUN pip install --no-cache-dir rpi-lgpio
 
 COPY src ./
 
