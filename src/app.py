@@ -64,5 +64,5 @@ if __name__ == "__main__":
     n = int(os.getenv("BLINKT_INIT_LED_COUNT", blinkt.NUM_PIXELS))
     if n < 0 or n > blinkt.NUM_PIXELS:
         n = blinkt.NUM_PIXELS
-    show_graph(blinkt.NUM_PIXELS / n, Config.r, Config.g, Config.b)
+    show_graph(n / blinkt.NUM_PIXELS, Config.r, Config.g, Config.b)
     app.run(debug=True, use_reloader=False, host="0.0.0.0", port=port)
